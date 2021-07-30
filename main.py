@@ -19,8 +19,8 @@ def caesar(message: str, key: int):
 
 
 def vigenere(message: str, key: str):
-    # Vigenère cipher - slightly more advanced cipher that uses caesar ciphers to shift a message by
-    # a different number for each character based on the key.
+    # Vigenère cipher - slightly more advanced cipher that shifts a message by
+    # a different number for each character based on a key.
 
     # Here we stretch our key to the same length as our message.
     while len(key) < len(message):
