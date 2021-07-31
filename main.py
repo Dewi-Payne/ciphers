@@ -38,8 +38,46 @@ def vigenere(message: str, key: str):
             final_message += character
     return final_message
 
+
+def encrypt():
+    if i.get() == 1:
+        t = caesar(inputbox.get("1.0", "end"), int(keybox.get("1.0", "end")))
+        outputbox.delete(1.0, tk.END)
+        outputbox.insert(1.0, t)
+    if i.get() == 2:
+        t = vigenere(inputbox.get("1.0", "end"), keybox.get("1.0", "end"))
+        outputbox.delete(1.0, tk.END)
+        outputbox.insert(1.0, t)
+
+
 if __name__ == "__main__":
     test_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    print(caesar(test_text, -2))
-    print(vigenere(test_text, "king"))
-    print(vigenere("ATTACKATDAWN", "LEMON"))
+
+    import tkinter as tk
+    root = tk.Tk()
+
+    inputlabel = tk.Label(root, text="Input text: ")
+    keylabel = tk.Label(root, text="Key: ")
+    outputlabel = tk.Label(root, text="Output text: ")
+    inputbox = tk.Text(root, width=30, height=2, wrap="char")
+    keybox = tk.Text(root, width=30, height=1, wrap="char")
+    outputbox = tk.Text(root, width=30, height=2, wrap="char")
+
+    i = tk.IntVar()
+    o1 = tk.Checkbutton(root, text="Caesar shift cipher", variable=i, onvalue=1)
+    o2 = tk.Checkbutton(root, text="Vigenère cipher", variable=i, onvalue=2)
+    b1 = tk.Button(root, text="Encrypt", command=lambda: encrypt())
+
+    inputlabel.grid(row=0, column=0)
+    keylabel.grid(row=1, column=0)
+    outputlabel.grid(row=2, column=0)
+
+    inputbox.grid(row=0, column=1)
+    keybox.grid(row=1, column=1)
+    outputbox.grid(row=2, column=1)
+
+    o1.grid(row=3, column=0)
+    o2.grid(row=3, column=1)
+    b1.grid(row=4, column=0)
+
+    root.mainloop()
