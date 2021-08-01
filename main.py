@@ -28,37 +28,41 @@ def vigenere(message: str, key: str):
     key = key[:len(message)].lower()
 
     final_message = ""
-    for i, character in enumerate(message.lower()):
+    id = 0
+    for character in message.lower():
         if character.isalpha():
             # Similar to how the Caesar cipher works above, the difference being that we are adding an ASCII ordinal
             # value instead of a numerical key, so we need to remove a further 97 to translate the character's value to
             # a number from 0 to 25.
-            final_message += chr((ord(character) + ord(key[i]) - (97 * 2)) % 26 + 97)
+            final_message += chr((ord(character) + ord(key[id]) - (97 * 2)) % 26 + 97)
+            id += 1
         else:
             final_message += character
     return final_message
 
 
 def encrypt():
+    input = inputbox.get("1.0", "end").rstrip()
+    key = keybox.get("1.0", tk.END).rstrip()
+
     if i.get() == 1:
-        t = caesar(inputbox.get("1.0", "end"), int(keybox.get("1.0", "end")))
-        outputbox.delete(1.0, tk.END)
-        outputbox.insert(1.0, t)
+        output = caesar(input, key)
+
     if i.get() == 2:
-        t = vigenere(inputbox.get("1.0", "end"), keybox.get("1.0", "end"))
-        outputbox.delete(1.0, tk.END)
-        outputbox.insert(1.0, t)
+        output = vigenere(input, key)
+
+    outputbox.delete(1.0, "end")
+    outputbox.insert(1.0, output)
 
 
 if __name__ == "__main__":
-    test_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-
     import tkinter as tk
     root = tk.Tk()
 
     inputlabel = tk.Label(root, text="Input text: ")
     keylabel = tk.Label(root, text="Key: ")
     outputlabel = tk.Label(root, text="Output text: ")
+
     inputbox = tk.Text(root, width=30, height=2, wrap="char")
     keybox = tk.Text(root, width=30, height=1, wrap="char")
     outputbox = tk.Text(root, width=30, height=2, wrap="char")
